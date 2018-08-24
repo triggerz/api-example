@@ -18,7 +18,7 @@ async function requestToken (clientId, clientSecret) {
 
 async function apiGet (endpoint, accessToken) {
   const options = {
-    url: `https://triggerz.com/api/${endpoint}`,
+    url: `https://api.triggerz.com/api/${endpoint}`,
     headers: { 
       'content-type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
