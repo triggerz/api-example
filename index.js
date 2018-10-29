@@ -16,9 +16,9 @@ async function requestToken (clientId, clientSecret) {
   return response.access_token;
 }
 
-async function apiGet (endpoint, accessToken) {
+async function apiGet (host, endpoint, accessToken) {
   const options = {
-    url: `https://api.triggerz.com/api/${endpoint}`,
+    url: `${host}/api/${endpoint}`,
     headers: { 
       'content-type': 'application/json',
       'Authorization': `Bearer ${accessToken}`
@@ -33,14 +33,21 @@ async function main () {
     console.error('ERROR: Both environment variables TRIGGERZ_CLIENT_ID and TRIGGERZ_CLIENT_SECRET must be set before running this demo.');
     return;
   }
+  const host = process.env.TRIGGERZ_API_HOST || 'https://api.triggerz.com';
 
   console.log('Requesting access token..');
   const accessToken = await requestToken(process.env.TRIGGERZ_CLIENT_ID, process.env.TRIGGERZ_CLIENT_SECRET);
 
   console.log('Pinging Triggerz API..');
-  const pingResponse = await apiGet('ping', accessToken);
+  const pingResponse = await apiGet(host, 'ping', accessToken);
 
   console.log('Response from triggerz API:', pingResponse);
 }
 
-main();
+const isCli = require.main === module;
+if (isCli) {
+  main().catch(err => console.error(err.message));
+} else {
+  module.exports = main;
+}
+

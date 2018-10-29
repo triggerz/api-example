@@ -8,7 +8,10 @@ The code is found in the [index.js](index.js) file. It runs on [nodejs](https://
 
 Then you should be able to run it by typing `npm start`. If everything is set up correctly, you should see something like this:
 ```
-> node index.js
+$ npm install
+$ set TRIGGERZ_CLIENT_ID=...
+$ set TRIGGERZ_CLIENT_SECRET=...
+$ npm start
 
 Requesting access token..
 Pinging Triggerz API..
