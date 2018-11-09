@@ -42,6 +42,20 @@ async function main () {
   const pingResponse = await apiGet(host, 'ping', accessToken);
 
   console.log('Response from triggerz API:', pingResponse);
+
+  console.log('Requesting "GET member/list"');
+  const memberListStringResponse = await apiGet(host, 'member/list', accessToken);
+  const memberListResponse = JSON.parse(memberListStringResponse);
+  console.log(JSON.stringify(memberListResponse, null, 2));
+  const memberByEmail = memberListResponse.memberByEmail;
+
+  const email = 'ronja.demo@triggerz.com';
+  if (memberByEmail[email]) {
+    console.log('Requesting "GET member/byEmail/:email"');
+    const memberStringResponse = await apiGet(host, `member/byEmail/${email}`, accessToken);
+    const memberResponse = JSON.parse(memberStringResponse);
+    console.log(JSON.stringify(memberResponse, null, 2));
+  }
 }
 
 const isCli = require.main === module;
