@@ -1,0 +1,113 @@
+Requesting access token..
+Pinging Triggerz API..
+Response from triggerz API: "pong"
+Requesting "GET memberRelationType/list"
+{
+  "memberRelationTypeList": [
+    "coach",
+    "recruiter",
+    "custom"
+  ]
+}
+Requesting "GET segmentGroup/list"
+{
+  "segmentGroupList": [
+    "global"
+  ]
+}
+Requesting "GET segment/list"
+{
+  "segmentList": [
+    "sales-interest",
+    "engineering",
+    "organization",
+    "leadership-level-top",
+    "leadership-level-medium",
+    "leadership-level-low",
+    "me",
+    "self-signed-up"
+  ]
+}
+Requesting "GET terms/list"
+{
+  "termsList": [
+    "some terms",
+    "some other terms",
+    "self-signed-up"
+  ]
+}
+Requesting "GET member/list"
+{
+  "memberByEmail": {
+    "adam.demo@triggerz.com": "td:adam",
+    "alex.demo@triggerz.com": "td:alex",
+    "bent.demo@triggerz.com": "td:bent",
+    "eliza.demo@triggerz.com": "td:eliza",
+    "emil.demo@triggerz.com": "td:emil",
+    "eva.demo@triggerz.com": "td:eva",
+    "freja.demo@triggerz.com": "td:freja",
+    "ronja.demo@triggerz.com": "td:ronja",
+    "serge.demo@triggerz.com": "td:serge",
+    "ulla.demo@triggerz.com": "td:ulla"
+  }
+}
+Requesting "GET member/byEmail/:email"
+{
+  "entity": {
+    "account": {
+      "displayName": "Ronja Total",
+      "displayInfo": "Head of Legal",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "accountEmail": [
+      {
+        "email": "ronja.demo@triggerz.com"
+      }
+    ],
+    "accountLink": [
+      {
+        "socialMediaTypeRef": "phone",
+        "url": "+4512345678"
+      }
+    ],
+    "member": {
+      "id": "td:ronja"
+    },
+    "memberRelation": [
+      {
+        "memberRelationTypeRef": "coach",
+        "parentMemberRef": "td:alex"
+      }
+    ],
+    "memberSegment": [
+      {
+        "segmentRef": "engineering"
+      }
+    ],
+    "memberTerms": [
+      {
+        "termsRef": "self-signed-up",
+        "consentedAt": "2018-11-11T11:03:40.116Z"
+      }
+    ]
+  }
+}
+Request "POST member/byEmail/:email"
+{
+  "entity": {
+    "account": {
+      "displayName": "Ronja Totally"
+    },
+    "memberSegment": [
+      {
+        "import": "delete",
+        "segmentRef": "engineering"
+      },
+      {
+        "import": "insert",
+        "segmentRef": "sales"
+      }
+    ]
+  }
+}
+td:ronja
