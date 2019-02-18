@@ -51,12 +51,9 @@ async function main () {
     console.log('Request "POST member/byEmail/:email"');
     const memberPatch = {
       entity: {
-        account: {
-          displayName: 'Ronja Totally'
-        },
         memberSegment: [
           {import: 'delete', segmentRef: 'engineering'},
-          {import: 'insert', segmentRef: 'sales'}
+          {import: 'upsert', segmentRef: 'sales-interest'}
         ]
       }
     };
