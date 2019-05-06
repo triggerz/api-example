@@ -1,5 +1,19 @@
 const api = require('./api');
 
+async function apiPost (endpoint, accessToken, payload) {
+  const options = {
+    url: `http://localhost:1802/api/${endpoint}`,
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`
+    },
+    body: payload,
+    json: true
+  };
+  const response = await request.post(options);
+  return response;
+}
+
 async function main () {
   if (!process.env.TRIGGERZ_CLIENT_ID || !process.env.TRIGGERZ_CLIENT_SECRET) {
     console.error('ERROR: Both environment variables TRIGGERZ_CLIENT_ID and TRIGGERZ_CLIENT_SECRET must be set before running this demo.');
@@ -60,6 +74,83 @@ async function main () {
     console.log(JSON.stringify(memberPatch, null, 2));
     const memberRef = await api.posting(host, `member/byEmail/${email}`, memberPatch, accessToken);
     console.log(memberRef);
+  }
+
+  console.log('Get sync content list from Triggerz API...');
+  const contentListResponse = JSON.parse(await apiGet('contentList', accessToken));
+  console.log('Response from triggerz API had length:', contentListResponse.length);
+
+  const userOne = {
+    email: 'someemail@example.com',
+    idName: 'someIdName',
+    displayName: 'some name'
+  };
+  const userTwo = {
+    email: 'anotheremail@example.com',
+    idName: 'anotherIdName',
+    displayName: 'what a name!',
+    displayInfo: 'some info',
+    description: 'some description',
+    terms: '360-participant'
+  };
+  const userThree = {
+    email: 'b10.demo@triggerz.com'
+  }
+
+  console.log('Attempt to remove participants through Triggerz API...');
+  for (const contentIdName of contentListResponse.contentIdNameList.slice(0, 10)) {
+    const payload = {
+      contentIdName,
+      userList: [
+        Object.assign({action: 'remove'}, userOne),
+        Object.assign({action: 'remove'}, userTwo),
+        Object.assign({action: 'remove'}, userThree)
+      ]
+    }
+    const updateParticipantListResponse = await apiPost('updateParticipantList', accessToken, payload);
+    console.log('Response from triggerz API:', updateParticipantListResponse);
+  }
+
+  console.log('Attempt to assign participants through Triggerz API...');
+  for (const contentIdName of contentListResponse.contentIdNameList.slice(0, 10)) {
+    const payload = {
+      contentIdName,
+      userList: [
+        Object.assign({action: 'assign'}, userOne),
+        Object.assign({action: 'assign'}, userTwo),
+        Object.assign({action: 'assign'}, userThree)
+      ]
+    }
+    const updateParticipantListResponse = await apiPost('updateParticipantList', accessToken, payload);
+    console.log('Response from triggerz API:', updateParticipantListResponse);
+  }
+
+  console.log('Attempt to assign participants through Triggerz API...');
+  for (const contentIdName of contentListResponse.contentIdNameList.slice(0, 10)) {
+    const payload = {
+      contentIdName,
+      userList: [
+        Object.assign({action: 'assign'}, userOne),
+        Object.assign({action: 'assign'}, userTwo),
+        Object.assign({action: 'assign'}, userThree)
+      ]
+    }
+    const updateParticipantListResponse = await apiPost('updateParticipantList', accessToken, payload);
+    console.log('Response from triggerz API:', updateParticipantListResponse);
+  }
+
+  console.log('Attempt to remove participants through Triggerz API...');
+  for (const contentIdName of contentListResponse.contentIdNameList.slice(0, 10)) {
+    const payload = {
+      contentIdName,
+      userList: [
+        Object.assign({action: 'remove'}, userOne),
+        Object.assign({action: 'remove'}, userTwo),
+        Object.assign({action: 'remove'}, userThree)
+      ]
+    }
+    const updateParticipantListResponse = await apiPost('updateParticipantList', accessToken, payload);
+    console.log('Response from triggerz API:', updateParticipantListResponse);
   }
 }
 
