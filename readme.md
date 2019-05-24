@@ -14,6 +14,12 @@ $ set TRIGGERZ_CLIENT_SECRET=...
 $ npm start
 ```
 
+on osx you need to use 'export' insted of 'set'.
+To run agains local environment use
+```
+$ set TRIGGERZ_API_HOST=http://localhost:1802
+```
+
 If everything is set up correctly, you should see something like this:
 
 ```
