@@ -64,7 +64,12 @@ async function main () {
 
   console.log('Get sync content list from Triggerz API...');
   const contentListResponse = JSON.parse(await api.getting(host, 'contentList', accessToken));
-  console.log('Response from triggerz API had length:', contentListResponse.length);
+  console.log('Response from triggerz API had length:', contentListResponse.contentIdNameList.length);
+
+  // console.log('Requesting "GET participantList/:contentIdName"');
+  // const contentIdName = contentListResponse.contentIdNameList[0];
+  // const getParticipantListResponse = JSON.parse(await api.getting(host, `participantList/${contentIdName}`, accessToken));
+  // console.log(JSON.stringify(getParticipantListResponse, null, 2));
 
   const userOne = {
     email: 'someemail@example.com',
@@ -77,12 +82,12 @@ async function main () {
     displayName: 'what a name!',
     displayInfo: 'some info',
     description: 'some description',
-    terms: '360-participant'
+    terms: termsListResponse.termsList[0]
   };
   const userThree = {
     displayName: 'some other name',
     email: 'b10.demo@triggerz.com'
-  }
+  };
 
   console.log('Attempt to remove participants through Triggerz API...');
   for (const contentIdName of contentListResponse.contentIdNameList.slice(0, 10)) {
@@ -93,7 +98,7 @@ async function main () {
         Object.assign({action: 'remove'}, userTwo),
         Object.assign({action: 'remove'}, userThree)
       ]
-    }
+    };
     const updateParticipantListResponse = await api.posting(host, 'updateParticipantList', payload, accessToken);
     console.log('Response from triggerz API:', updateParticipantListResponse);
   }
@@ -107,7 +112,7 @@ async function main () {
         Object.assign({action: 'assign'}, userTwo),
         Object.assign({action: 'assign'}, userThree)
       ]
-    }
+    };
     const updateParticipantListResponse = await api.posting(host, 'updateParticipantList', payload, accessToken);
     console.log('Response from triggerz API:', updateParticipantListResponse);
   }
@@ -121,7 +126,7 @@ async function main () {
         Object.assign({action: 'assign'}, userTwo),
         Object.assign({action: 'assign'}, userThree)
       ]
-    }
+    };
     const updateParticipantListResponse = await api.posting(host, 'updateParticipantList', payload, accessToken);
     console.log('Response from triggerz API:', updateParticipantListResponse);
   }
@@ -135,7 +140,7 @@ async function main () {
         Object.assign({action: 'remove'}, userTwo),
         Object.assign({action: 'remove'}, userThree)
       ]
-    }
+    };
     const updateParticipantListResponse = await api.posting(host, 'updateParticipantList', payload, accessToken);
     console.log('Response from triggerz API:', updateParticipantListResponse);
   }
