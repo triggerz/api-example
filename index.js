@@ -66,10 +66,10 @@ async function main () {
   const contentListResponse = JSON.parse(await api.getting(host, 'contentList', accessToken));
   console.log('Response from triggerz API had length:', contentListResponse.contentIdNameList.length);
 
-  // console.log('Requesting "GET participantList/:contentIdName"');
-  // const contentIdName = contentListResponse.contentIdNameList[0];
-  // const getParticipantListResponse = JSON.parse(await api.getting(host, `participantList/${contentIdName}`, accessToken));
-  // console.log(JSON.stringify(getParticipantListResponse, null, 2));
+  console.log('Requesting "GET participantList/:contentIdName"');
+  const contentIdName = contentListResponse.contentIdNameList[0];
+  const getParticipantListResponse = JSON.parse(await api.getting(host, `participantList/${contentIdName}`, accessToken));
+  console.log(JSON.stringify(getParticipantListResponse, null, 2));
 
   const userOne = {
     email: 'someemail@example.com',
